@@ -1,9 +1,6 @@
 # Dscanner
 
 
-It allows you to do range scans distributed on multiple machines to find minecraft servers.
-
-
 > Continuously updated
 
 > There are no dependencies
