@@ -1,5 +1,6 @@
 # Dscanner
 
+
 It allows you to do range scans distributed on multiple machines to find minecraft servers.
 
 
@@ -19,11 +20,13 @@ It allows you to do range scans distributed on multiple machines to find minecra
 - [Usage](#usage)
 - [License](#license)
 
+
 ---
 
 ## Requirements
 
 > Python 3.8 or higher
+
 
 ---
 
@@ -53,15 +56,17 @@ Enter in the folder of Dscanner and start the tool:
 $ cd Dscanner
 $ python3.8 Dscanner.py
 ```
+
+---
+
+## Usage 
+
+
 ---
 
 
 ## Features
 
----
-
-
-## Usage 
 
 ---
 
