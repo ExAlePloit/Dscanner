@@ -9,7 +9,7 @@ It allows you to do range scans distributed on multiple machines to find minecra
 
 > Multiplatform (Windows, Linux, Mac)
 
----
+
 
 ## Table of Contents
 
