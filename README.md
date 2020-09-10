@@ -13,8 +13,8 @@
 
 - [Installation](#installation)
 - [Requirements](#requirements)
-- [Features](#features)
 - [Usage](#usage)
+- [Features](#features)
 - [License](#license)
 
 
