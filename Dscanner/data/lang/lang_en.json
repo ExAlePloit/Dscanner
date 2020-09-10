@@ -1,0 +1,46 @@
+{
+  "welcome": " Welcome on Dscanner! Coded by ExAlePloit (@Aless1010)!",
+  "pause": " Press [enter] to continue.",
+  "choice": " Choice: ",
+  "modality_choice": " 1) Connect other Dscanners to this one.\n 2) Connect this Scanner to another one.\n Choice: ",
+  "permanent_choice": " Do you want to always use this option?\n 1) Yes\n 2) No\n Choice: ",
+  "client": {
+    "first_setup": " Chose the port you want to use to connect the other Dscanners\n Press enter to use the default one (4100)\n Choice: ",
+    "error_port_range": " The ports you put must be greater than 1024 and minor than 65536. ",
+    "waiting_connection": " Waiting for connection.",
+    "connection_established": " Succesfully connected",
+    "stop_connection_question": " Type /stop if you want to stop the connection.\n Input: ",
+    "scan_started": " Scanning...",
+    "scan_finished": " Scan ended"
+  },
+  "server": {
+    "first_setup": " Welcome, before continuing we need to set up the command you will use (it could be changed).",
+    "menu": " 1) Scans Manager.\n 2) Dscanner Manager.\n 3) Settings.\n 4) Exit.\n Chose: ",
+    "scan_manager": " 1) Start a new scan.\n 2) View results\n 3) Back.\n Chose: ",
+    "dscanner_manager": " 1) Connect a Dscanner.\n 2) Back.\n Chose: ",
+    "dscanner_settings": " 1) Qubo Command.\n 2) Change Language.\n 3) Back.\n Chose: ",
+    "qubo_command_settings": {
+      "pingcount": " 1) PingCount (How much time qubo will ping a server): ",
+      "fulloutput": " 2) Whole OutPut: (The result of the scan will be saved on a heavier, but more readable file.): ",
+      "filtermotd": " 3) Motd Filter: (Only shows the servers with the chosen motd): ",
+      "noping": " 4) No Ping: (Qubo won't ping a server before it get scanned): ",
+      "minonline": " 5) Min Online: (Only shows servers that have a greater number of players online than the chosen number): ",
+      "portrange": " 6) Port Range: (Chose the range of ip qubo will scan): ",
+      "threads": " 7) Threads: (Max number of threads qubo will use): ",
+      "timeout": " 8) Timeout: (How long qubo will wait for the server's response): ",
+      "filterversion": " 9) Version Filter: (Only shows servers with the chosen version): ",
+      "exit": " 10) Save and exit.",
+      "cant_exit": " You can't exit, you have to fill required fields (Threads, Timeout, Port Range)."
+  },
+    "ask_ip": " Put the Dscanner's ip you want to connect: ",
+    "ask_port": " Put the port you want to use to connect the other Dscanners to this one.\n Press enter to use the default port (4100)\n Chose: ",
+    "connection_established": " Succesfully connected. ",
+    "cant_start_scan": " Before starting the scan you have to connect a Dscanner",
+    "input_range": " Put the ip-range (Example: 127.0.0.0-127.0.2.255): ",
+    "started_scan": " The scan started, go to the results section to view the results.",
+    "back": "Back",
+    "no_connection": " It was impossible to connect.",
+    "scan_running": " Scanning.. ",
+    "scan_finished": " Scan ended"
+  }
+}

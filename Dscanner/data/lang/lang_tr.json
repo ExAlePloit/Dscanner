@@ -1,0 +1,46 @@
+{
+  "welcome": " DScanner'e Hoşgeldiniz.! ExAlePloit (@Aless1010) Tarafından Kodlanmıştır!.",
+  "pause": " Devam etmek için Enter'e basın.",
+  "choice": " Secenek: ",
+  "modality_choice": " 1) Diger DScannerleri Buna bağlayın..\n 2) Bu scanneri baska birine bağlayın.\n Secenek: ",
+  "permanent_choice": " Her zaman bu seçeneği mi kullanmak istiyorsunuz ?\n 1) Evet\n 2) Hayır\n Secenek: ",
+  "client": {
+    "first_setup": " diğer DScannerler'e bağlantı kurmak icin kullanmak istediğin portu seç\n Varsayılan olanı kullanmak icin Lütfen Enter'e Basınız.(4100)\n Secenek: ",
+    "error_port_range": " Koyacağınız port 1024 den büyük 65536 dan küçük olmalıdır. ",
+    "waiting_connection": "Bağlantı için bekleniyor.",
+    "connection_established": "Bağlantı başarıyla kuruldu.",
+    "stop_connection_question": " Type/Stop bağlantıyı durdurmak istiyorsan Stop yaz..\n Input: ",
+    "scan_started": " Taranıyor...",
+    "scan_finished": " Tarama bitti."
+  },
+  "server": {
+    "first_setup": " Merhaba!,devam etmeden önce kullanacağınız komudu kurmaya ihtiyacımız var.(değiştirilebilir.).",
+    "menu": " 1) Taramalar yoneticisi.\n 2) DScanner yöneticisi.\n 3) Ayarlar.\n 4) çıkış.\n Chose: ",
+    "scan_manager": " 1) yeni bir tarama başlat.\n 2) Sonuçları göster\n 3) Geri dön.\n Chose: ",
+    "dscanner_manager": " 1) Bir Dscanner'e Bağlan.\n 2) Geri dön.\n Chose: ",
+    "dscanner_settings": " 1) Qubo Komudu.\n 2) Dili Değiştir.\n 3) Geri dön.\n Chose: ",
+    "qubo_command_settings": {
+      "pingcount": " 1) PingCount (Qubo server'a ne kadar süre ping göndersin): ",
+      "fulloutput": " 2) Whole OutPut: (Taramanın Sonucu Büyük bir dosya da saklanacak, fakat daha okunabilir dosya.): ",
+      "filtermotd": " 3) Motd Filter: (sadece serverleri secilen moth ile göster): ",
+      "noping": " 4) No Ping: (Qubo won't ping a server before it get scanned): ",
+      "minonline": " 5) Min Online: (Yalnızca seçilen sayıdan daha fazla sayıda çevrimiçi oyuncuya sahip olan sunucuları gösterir): ",
+      "portrange": " 6) Port Range: (Qubonun Tarama yapacağı ip aralığını seçin): ",
+      "threads": " 7) Threads: (Qubonun kullanacağı en fazla iş parçacıklarının sayısı): ",
+      "timeout": " 8) Timeout: (Serverin Cevabı için Qubo ne kadar beklesin): ",
+      "filterversion": " 9) Version Filter: (Sadece seçilen sürümdeki sunucuları görüntüleyin): ",
+      "exit": " 10) Sakla ve Çık.",
+      "cant_exit": " Çıkış yapamazsınız,Gerekli alanları doldurmak zorundasın  (Threads, Timeout, Port Range)."
+  },
+    "ask_ip": " Bağlanmak istediğiniz Dscannerin ip koyun: ",
+    "ask_port": " Diğer tarayıcıları buna bağlamak için kullanmak istediğiniz bağlantı noktasını yerleştirin.\n lütfen Varsayılanı kullanmak için enter'e basın(4100)\n Chose: ",
+    "connection_established": " Başarıyla bağlantı kuruldu. ",
+    "cant_start_scan": " Taramaya başlamadan önce,bir DScanner'e Bağlantı kurmak zorundasın.",
+    "input_range": " ip aralığını koyun (Örneğin: 127.0.0.0-127.0.2.255): ",
+    "started_scan": " Tarama başladı, Sonuçları goruntulemek icin sonuçlar bölümüne gidiniz.",
+    "back": "Geri don",
+    "no_connection": " Bağlantı kurmak imkansızdi..",
+    "scan_running": " Taranıyor.. ",
+    "scan_finished": " Tarama bitti"
+  }
+}
