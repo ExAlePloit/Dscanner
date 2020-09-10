@@ -1,4 +1,4 @@
-# Dscanner
+# *Dscanner*
 
 
 > Continuously updated
@@ -31,7 +31,7 @@
 
 Make sure you have the right version of python
 
-### Clone
+#### Clone
 
 ##### From command line
 ```shell
@@ -42,7 +42,7 @@ $ cd Dscanner
 ##### Or download it from github: <a href=https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository>Github Guide</a>
 
 
-### Launch the tool
+#### Launch the tool
 
 Make sure you have python command in the path
 Common path: py, python, python3, python3.8
