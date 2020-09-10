@@ -57,12 +57,24 @@ $ python3.8 Dscanner.py
 ---
 
 ## Usage 
+- Choose your language
+- Choose if the tool should be client or server
 
+Client: Connect the server, receive instructions and send results.
+Server: It connects to clients, sends instructions, and receives and processes the results.
 
 ---
 
 
 ## Features
+- [x] connects clients and scans
+- [x] Save results to a file
+- [x] Multi language support
+- [ ] Custom settings for each client
+- [ ] Reload results after a server restart
+- [ ] Possibility to put in what the scans
+- [ ] Support for custom colors
+- [ ] Graphical interface for server mode
 
 
 ---
