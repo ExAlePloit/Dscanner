@@ -1,0 +1,51 @@
+{
+  "welcome": " Welcome on DScanner! Created by ExAlePloit (@Aless1010)!",
+  "pause": " Press [enter] to continue.",
+  "choice": " Choice: ",
+  "modality_choice": "What do you want to be:\n 1) Server. (Connect another DScanner to this) \n 2) Client. (Connect this DScanner to another)",
+  "permanent_choice": " Do you want to make this choice permanent?\n 1) Yes\n 2) No",
+  "client": {
+    "first_setup": " Choose which port use to connect other DScanner.\n Press send to use the default mode (4100)",
+    "error_port_range": " You have to choose a port >=1025 e <=65535. ",
+    "waiting_connection": " Waiting connection.",
+    "connection_established": " Succesfully connected on ",
+    "connection_lost": " Connection lost from ",
+    "stop_connection_question": " If you want to stop the connection write: \"stop\" \n Input: ",
+    "scan_started": " Scan in progress.",
+    "scan_finished": " Scan finished.",
+    "scan_queue": " Queued."
+  },
+  "server": {
+    "first_setup": " Welcome, before continue we need to configure the command that you will use, can you edit it later.",
+    "close_warning": "\" Nota: Can you close the file but only writing [4) Exit] of the default menu, do not close the programme using [ctrl+c] or pressing on[X]\n Otherwise you wil lose the scans in progress and you need to restart and reconnect all clients.",
+    "menu": " 1) Manager scans.\n 2) Manager Dscanner.\n 3) Settings.\n 4) Exit.",
+    "scan_manager": " 1) Start a new scan.\n 2) View results\n 3) Back.",
+    "dscanner_manager": " 1) Connect any Dscanner.\n 2) Back.",
+    "dscanner_settings": " 1) Command Qubo.\n 2) Change the language.\n 3) Back.",
+    "qubo_command_settings": {
+      "pingcount": " 1) PingCount (How many times qubo will ping a server): ",
+      "fulloutput": " 2) Whole output: (Create a more readable but larger output): ",
+      "filtermotd": " 3) Motd filter: (Show only results with the specified motd): ",
+      "noping": " 4) No Ping: (Prevents qubo from pinging the ip before scanning): ",
+      "minonline": " 5) Min Online: (Show only results with the minimum number of players specified): ",
+      "portrange": " 6) Port Range: (The range of ports that it will scan�): ",
+      "threads": " 7) Threads: (Maximum number of threads in execution): ",
+      "timeout": " 8) Timeout: (How long should the server respond): ",
+      "filterversion": " 9) Version Filter: (Only show results with the specified version): ",
+      "exit": " 10) Save and exit.",
+      "cant_exit": " You can't exit, you need to fill the required data (Threads, Timeout, Port Range)."
+  },
+    "ask_ip": " Enter the ip of the DScanner you want to connect : ",
+    "ask_port": " Choose which port use for connect other DScanner.\n Press send for use default mode(4100)",
+    "connection_established": " Succesfully connected with:  ",
+    "cant_start_scan": " Before starting a scan, you need to connect a DScanner",
+    "input_range": " Insert the range (Example: 127.0.0.0-127.0.2.255): ",
+    "started_scan": " Scan started, for view results go in the \"Results\" section.",
+    "back": "Back",
+    "no_connection": " The connection could not be estabilished",
+    "scan_running": " Scan in progress",
+    "scan_finished": " Scan finished",
+    "loading_last_session": " Loading the last session save",
+    "save_ask": "Do you want save before left?\n 1) Yes\n 2) No"
+  }
+}

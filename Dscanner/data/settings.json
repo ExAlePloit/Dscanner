@@ -1,18 +1,1 @@
-{
-  "first_start": true,
-  "language": null,
-  "modality": null,
-  "qubo_command": {
-    "pingcount": null,
-    "fulloutput": null,
-    "filtermotd": null,
-    "noping": null,
-    "minonline": null,
-    "portrange": null,
-    "threads": null,
-    "timeout": null,
-    "filterversion": null,
-    "range": null
-  }
-
-}
+{"first_start": false, "language": null, "load_last_session": false, "modality": null, "qubo_command": {"pingcount": null, "fulloutput": null, "filtermotd": null, "noping": true, "minonline": null, "portrange": null, "threads": null, "timeout": null, "filterversion": null, "range": null"}}

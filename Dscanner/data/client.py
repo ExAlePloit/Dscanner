@@ -4,13 +4,7 @@ import threading
 import sys
 import json
 from subprocess import Popen, PIPE
-
-
-def receive_mex(client_socket):
-    arr = b''
-    while len(arr) < 1:
-        arr += client_socket.recv(1024)
-    return arr.decode("utf-8")
+from time import sleep
 
 
 def parsecommand(json_command):
@@ -66,23 +60,99 @@ def parsecommand(json_command):
                                         if 1 < json_command["filterversion"].len() < 100:
                                             command += " --filterversion " + json_command["filterversion"]
 
-                                    return command
+                                    return command, json_command["range"]
     return None
 
 
-def connection(client_socket):
+def receive_mex(client_socket):
+    try:
+        arr = b''
+        while len(arr) < 1:
+            arr += client_socket.recv(1024)
+        return arr.decode("utf-8")
+    except:
+        return 0
+
+
+class scan:
+    def __init__(self, sock):
+        self.command = []
+        self.scan_range = []
+        self.target = []
+        self.stdout = []
+        self.send_thread = []
+        self.sock = sock
+        self.connected = True
+        self.scan_counter = 0
+        self.scan_to_do = 0
+        self.scan_thread = threading.Thread(target=self.start_scan, daemon=True)
+        self.scan_thread.start()
+
+    def add_scan(self, command, target, scan_range):
+        if self.scan_counter < self.scan_to_do:
+            print(scan_range, language["client"]["scan_queue"])
+        self.command.append(command)
+        self.target.append(target)
+        self.scan_range.append(scan_range)
+        self.scan_to_do += 1
+
+    def start_scan(self):
+        while True:
+            if self.scan_counter < self.scan_to_do:
+                process = Popen(self.command[self.scan_counter], shell=True, stdout=PIPE, stderr=PIPE)
+                print(self.scan_range[self.scan_counter], language["client"]["scan_started"])
+                process.wait()
+                self.stdout.append(process.communicate()[0])
+                print(self.scan_range[self.scan_counter], language["client"]["scan_finished"])
+                self.send_thread.append(threading.Thread(target=self.send_results, daemon=True))
+                self.send_thread[self.scan_counter].start()
+                self.scan_counter += 1
+
+    def send_results(self):
+        counter = self.scan_counter
+        while True:
+            if self.connected:
+                self.sock.send(self.stdout[counter])
+                break
+            sleep(5)
+
+    def new_socket(self, sock):
+        self.sock = sock
+        self.connected = True
+
+    def set_status(self, status):
+        self.connected = status
+
+
+def connection(port):
+    alert_connection = False
     while True:
-        json_command = json.loads(receive_mex(client_socket))
-        print(json_command["range"], language["client"]["scan_started"])
-        command = parsecommand(json_command)
-        if command is not None:
-            process = Popen(command, shell=True, stdout=PIPE, stderr=PIPE)
-            process.wait()
-            stdout = process.communicate()[0]
-            client_socket.send(stdout)
-            print(json_command["range"], language["client"]["scan_finished"])
+        print(language["client"]["waiting_connection"])
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.bind(('0.0.0.0', port))
+        sock.listen(5)
+        client_socket, address = sock.accept()
+        connected = True
+        if alert_connection:
+            scanner.new_socket(client_socket)
+            alert_connection = False
         else:
-            client_socket.send(bytes("None", "utf-8"))
+            scanner = scan(client_socket)
+        print(language["client"]["connection_established"], address)
+        while connected:
+            received_mex = receive_mex(client_socket)
+            if received_mex == 0:
+                connected = False
+                scanner.set_status(connected)
+                alert_connection = True
+                print(language["client"]["connection_lost"], address)
+            else:
+                json_command = json.loads(received_mex)
+                command, scan_range = parsecommand(json_command)
+                if command is not None:
+                    scanner.add_scan(command, address, scan_range)
+                else:
+                    client_socket.send(bytes("None", "utf-8"))
 
 
 def main():
@@ -92,22 +162,16 @@ def main():
     language = functions.get_lang(settings)
 
     functions.clear()
-    port = input(language["client"]["first_setup"])
+    print(language["client"]["first_setup"])
+    port = input(language["choice"])
     if port == "":
         port = 4100
-    elif not 1024 <= int(port) <= 65535:
+    elif not 1025 <= int(port) <= 65535:
         print(language["client"]["error_port_range"])
     else:
         port = int(port)
 
-    print(language["client"]["waiting_connection"])
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind(('0.0.0.0', port))
-    sock.listen(5)
-
-    client_socket, address = sock.accept()
-    print(language["client"]["connection_established"], address)
-    connection_thread = threading.Thread(target=connection, args=[client_socket], daemon=True)
+    connection_thread = threading.Thread(target=connection, args=[port], daemon=True)
     connection_thread.start()
 
     while True:

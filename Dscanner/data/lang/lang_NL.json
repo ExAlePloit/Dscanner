@@ -1,0 +1,51 @@
+{
+  "welcome": " Welkom op DScanner! Gemaakt door ExAlePloit (@Aless1010)!",
+  "pause": " drop op [enter] om door te gaan.",
+  "choice": " Keuze: ",
+  "modality_choice": "Waar wil je heen:\n 1) Server. (Connect andere DScanner aan deze) \n 2) Client. (Connect deze DScanner aan een andere)",
+  "permanent_choice": " Wilt u deze keuze permanent maken?\n 1) ja\n 2) nee",
+  "client": {
+    "first_setup": " Kies welke port je wilt connecten aan andere DScanner.\n druk send om de normale modus te gebruiken (4100)",
+    "error_port_range": " Je moet een port kiezen >=1025 e <=65535. ",
+    "waiting_connection": " Wachten op verbinding.",
+    "connection_established": " succesvol geconnect op ",
+    "connection_lost": " Verbinding verbroken van ",
+    "stop_connection_question": " Als u de connectie wilt stoopen typ: \"stop\" \n Input: ",
+    "scan_started": " Scan is bezig.",
+    "scan_finished": " Scan beeindigd.",
+    "scan_queue": " Wachtrij."
+  },
+  "server": {
+    "first_setup": " welkom, voordat we verder gaan moeten we een command configureren dat u wilt gebruiken, u kunt dit later bewerken.",
+    "close_warning": "\" Nota: Gebruik de normale tekst bewerker [4) Exit] uit het normale menu, sluit dit programma niet met [ctrl+c] of om op [X]\n Anders wilt u de scans die bezig zijn verliezen en moet u alle clients restarten.",
+    "menu": " 1) beheer scans.\n 2) beheer Dscanner.\n 3) instellingen.\n 4) Exit.",
+    "scan_manager": " 1) Start een nieuwe scan.\n 2) bekijk resultaten\n 3) terug.",
+    "dscanner_manager": " 1) Connect aan elke Dscanner.\n 2) terug.",
+    "dscanner_settings": " 1) Command Qubo.\n 2) verander de taal.\n 3) terug.",
+    "qubo_command_settings": {
+      "pingcount": " 1) PingCount (hoeveel keer qubo een server pinged): ",
+      "fulloutput": " 2) Whole output: (U krijgt meer overzicht maar een groter bestand): ",
+      "filtermotd": " 3) Motd filter: (laat alleen resultaten zien met specified motd): ",
+      "noping": " 4) No Ping: (voorkomt qubo om een ip te pingen voor het scanner): ",
+      "minonline": " 5) Min Online: (Laat alleen resultaten zien met he minimale anntal spelers): ",
+      "portrange": " 6) Port Range: (Het bereik van de port laat scannen�): ",
+      "threads": " 7) Threads: (Maximaal aantal uitgevoerde threads ): ",
+      "timeout": " 8) Timeout: (hoelang moet de server reageren): ",
+      "filterversion": " 9) Version Filter: (laat alleen resultaten zien met een speciale versie): ",
+      "exit": " 10) sluiten en opslaan.",
+      "cant_exit": " U kunt nu niet sluiten, je moet de verplichte gegevens invullen (Threads, Timeout, Port Range)."
+  },
+    "ask_ip": " type het ip in van de DScanner die u wilt connecten : ",
+    "ask_port": " Kies welke port u wilt gebruiken voor de andere DScanner.\n druk send om de normale modus te gebruiken(4100)",
+    "connection_established": " Succesvol geconnected met:  ",
+    "cant_start_scan": " Before starting a scan, you need to connect a DScanner",
+    "input_range": " Insert the range (Example: 127.0.0.0-127.0.2.255): ",
+    "started_scan": " Scan begonnen, om de resultaten te zien ga naar \"Results\" section.",
+    "back": "Back",
+    "no_connection": " de connectie kon niet worden vastgestald",
+    "scan_running": " Scan is bezig",
+    "scan_finished": " Scan beeindigd",
+    "loading_last_session": " De laaste sessie aan het laden",
+    "save_ask": "Wilt u dit opslaan voordat u weggaat??\n 1) ja\n 2) nee"
+  }
+}

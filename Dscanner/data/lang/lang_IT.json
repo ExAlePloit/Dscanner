@@ -1,0 +1,51 @@
+{
+  "welcome": " Benvenuto su Dscanner! Creato da ExAlePloit (@Aless1010)!",
+  "pause": " Premi [enter] per proseguire.",
+  "choice": " Scelta: ",
+  "modality_choice": "Cosa vuoi essere:\n 1) Server. (Connetti altri Dscanner a questo) \n 2) Client. (Connetti questo Dscanner ad un'altro)",
+  "permanent_choice": " Vuoi rendere questa scelta permanente?\n 1) Si\n 2) No",
+  "client": {
+    "first_setup": " Scegli quale porta usare per connettere gli altri Dscanner.\n Premi invio per usare quella di default (4100)",
+    "error_port_range": " Devi scegliere una porta >=1025 e <=65535. ",
+    "waiting_connection": " In attesa della connessione.",
+    "connection_established": " Connesso con successo con ",
+    "connection_lost": " Connessione persa da ",
+    "stop_connection_question": " Se vuoi interrompere la connessione scrivi: \"stop\" \n Input: ",
+    "scan_started": " Scan in corso.",
+    "scan_finished": " Scan finito.",
+    "scan_queue": " Messo in coda."
+  },
+  "server": {
+    "first_setup": " Benvenuto, prima di continuare dobbiamo configurare il comando che userai, potrai modificarlo in seguito.",
+    "close_warning": "\" Nota: Puoi chiudere il programma ma solo tramite [4) Esci] del menù principale, non chiudere il programma con [ctrl+c] o premendo sulla [X]\n Altrimenti perderai gli scan in corso e dovrai riavviare e riconnettere tutti i client a mano.",
+    "menu": " 1) Manager scansioni.\n 2) Manager Dscanner.\n 3) Impostazioni.\n 4) Esci.",
+    "scan_manager": " 1) Inizia un nuovo scan.\n 2) Visualizza risultati\n 3) Indietro.",
+    "dscanner_manager": " 1) Connetti un Dscanner.\n 2) Indietro.",
+    "dscanner_settings": " 1) Comando Qubo.\n 2) Cambia lingua.\n 3) Indietro.",
+    "qubo_command_settings": {
+      "pingcount": " 1) PingCount (Quante volte qubo eseguirà il ping di un server): ",
+      "fulloutput": " 2) Output intero: (Crea un output più leggibile ma più grande): ",
+      "filtermotd": " 3) Filtro Motd: (Mostra solo i risultati con il motd specificato): ",
+      "noping": " 4) No Ping: (Impedisce a Qubo di eseguire il ping dell'ip prima della scansione): ",
+      "minonline": " 5) Min Online: (Mostra solo i risultati con un il numero minimo di player specificato): ",
+      "portrange": " 6) Port Range: (L'intervallo di porte su cui scansionerà): ",
+      "threads": " 7) Threads: (Numero massimo di thread asincroni in esecuzione): ",
+      "timeout": " 8) Timeout: (Quanto tempo deve aspettare la risposta del server): ",
+      "filterversion": " 9) Filtro Versione: (Mostra solo i risultati con la versione specificata): ",
+      "exit": " 10) Salva ed esci.",
+      "cant_exit": " Non puoi uscire, devi compilare i dati obbligatori (Threads, Timeout, Port Range)."
+  },
+    "ask_ip": " Inserisci l'ip del Dscanner che vuoi connettere: ",
+    "ask_port": " Scegli quale porta usare per connettere gli altri Dscanner.\n Premi invio per usare quella di default (4100)",
+    "connection_established": " Connesso con successo con:  ",
+    "cant_start_scan": " Prima di iniziare uno scan devi connettere un Dscanner",
+    "input_range": " Inserisci il range (Esempio: 127.0.0.0-127.0.2.255): ",
+    "started_scan": " Lo scan è iniziato, per visualizzare i risultati vai nella sezione \"risultati\".",
+    "back": "Indietro",
+    "no_connection": " Non è stato possibile stabilire la connessione",
+    "scan_running": " Scan in corso",
+    "scan_finished": " Scan finito",
+    "loading_last_session": " Caricando il salvataggio dell'ultima sessione",
+    "save_ask": "Vuoi salvare prima di uscire?\n 1) Si\n 2) No"
+  }
+}

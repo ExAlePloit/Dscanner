@@ -1,10 +1,9 @@
-from data import functions
-import sys
 import json
-import threading
 import socket
-import ipaddress
+import sys
+import threading
 from time import sleep
+from data import functions
 
 
 def setup_qubo_command():
@@ -23,7 +22,8 @@ def setup_qubo_command():
         x = int(input(language["choice"]))
         if 1 <= x <= 9:
             if x == 1:
-                settings["qubo_command"]["pingcount"] = int(input(language["server"]["qubo_command_settings"]["pingcount"]))
+                settings["qubo_command"]["pingcount"] = int(
+                    input(language["server"]["qubo_command_settings"]["pingcount"]))
             elif x == 2:
                 if settings["qubo_command"]["fulloutput"] is None:
                     settings["qubo_command"]["fulloutput"] = True
@@ -42,7 +42,8 @@ def setup_qubo_command():
                 else:
                     settings["qubo_command"]["noping"] = True
             elif x == 5:
-                settings["qubo_command"]["minonline"] = int(input(language["server"]["qubo_command_settings"]["minonline"]))
+                settings["qubo_command"]["minonline"] = int(
+                    input(language["server"]["qubo_command_settings"]["minonline"]))
             elif x == 6:
                 settings["qubo_command"]["portrange"] = input(language["server"]["qubo_command_settings"]["portrange"])
             elif x == 7:
@@ -63,26 +64,35 @@ def setup_qubo_command():
 
 
 class client:
-    def __init__(self):
-        self.host = input(language["server"]["ask_ip"])
-        self.port = input(language["server"]["ask_port"])
-        if self.port == "":
-            self.port = 4100
+    def __init__(self, target=None):
+        self.wait_status = False
+        if target is None:
+            self.host = input(language["server"]["ask_ip"])
+            print(language["server"]["ask_port"])
+            self.port = input(language["choice"])
+            if self.port == "":
+                self.port = 4100
+            else:
+                self.port = int(self.port)
         else:
-            self.port = int(self.port)
+            self.host, self.port = target
+
         try:
             self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.sock.connect((self.host, self.port))
-            print(language["server"]["connection_established"])
+            print(language["server"]["connection_established"], self.host, ":", self.port)
+            sleep(2)
         except:
-            print(language["Server"]["no_connection"])
+            print(language["server"]["no_connection"])
             input(language["pause"])
             self.kill()
 
     def receive_packet(self):
+        self.wait_status = True
         arr = b''
         while len(arr) < 1:
             arr += self.sock.recv(1024)
+        self.wait_status = False
         return arr.decode("utf-8")
 
     def send_packet(self, packet):
@@ -103,35 +113,14 @@ class client:
         del self
 
 
-def range_calculator(number_of_client, raw_range):
-    first_ip = raw_range.split("-")[0]
-    last_ip = raw_range.split("-")[1]
-    print(first_ip, "-", last_ip)
-    first_ip_int = int(ipaddress.IPv4Address(first_ip))
-    last_ip_int = int(ipaddress.IPv4Address(last_ip))
-
-    difference = last_ip_int - first_ip_int
-    diff_between_ip = int(difference / number_of_client)
-    diff_between_ip_copy = diff_between_ip
-
-    divided_range = [(str(first_ip) + "-" + str(ipaddress.IPv4Address(diff_between_ip + first_ip_int)))]
-
-    for x in range(number_of_client - 1):
-        range_string = str(ipaddress.IPv4Address(diff_between_ip + first_ip_int + 1)) + "-"
-        diff_between_ip += diff_between_ip_copy
-        if x == number_of_client - 2:
-            range_string += last_ip
-        else:
-            range_string += str(ipaddress.IPv4Address(diff_between_ip + first_ip_int))
-        divided_range.append(range_string)
-    return divided_range
-
-
 class results:
     def __init__(self, range_name, client_number):
         self.range_name = range_name
         self.client_number = client_number
         self.result_list = []
+        for i in range(self.client_number):
+            self.result_list.append("")
+        self.add_scan()
 
     def show_result(self):
         print('\n'.join(self.result_list))
@@ -141,30 +130,32 @@ class results:
         functions.save_file('\n'.join(self.result_list), "results/" + self.range_name + ".txt")
 
     def get_state(self):
-        if len(self.result_list) != self.client_number:
-            return self.range_name + language["server"]["scan_running"]
-        else:
-            return self.range_name + language["server"]["scan_finished"]
+        for x in self.result_list:
+            if x == "":
+                return False
+        return True
 
-    def add_range(self, client_obj):
-        self.result_list.append(client_obj.receive_packet())
+    def add_scan(self):
+        i = 0
+        threads = []
+        for client_obj in client_list:
+            if self.result_list[i] == "":
+                threads.append(threading.Thread(target=self.add_range, args=[client_obj, i], daemon=True))
+                threads[-1].start()
+            i += 1
+
+        threads.append(threading.Thread(target=self.wait_all, daemon=True))
+        threads[-1].start()
+
+    def add_range(self, client_obj, counter):
+        while client_obj.wait_status:
+            sleep(5)
+        self.result_list[counter] = client_obj.receive_packet()
 
     def wait_all(self):
-        while len(self.result_list) != self.client_number:
+        while not self.get_state():
             sleep(10)
         self.save_results()
-
-
-def receive_results(range_name):
-    result_list.append(results(range_name, len(client_list)))
-
-    for client_obj in client_list:
-        thread_list.append(threading.Thread(target=result_list[len(thread_list) - 1].add_range, args=[client_obj], daemon=True))
-        thread_list[len(thread_list) - 1].start()
-
-    thread_list.append(threading.Thread(target=result_list[len(result_list) - 1].wait_all))
-    thread_list[len(thread_list) - 1].daemon = True
-    thread_list[len(thread_list) - 1].start()
 
 
 def start_scan():
@@ -173,38 +164,45 @@ def start_scan():
         print(language["pause"])
         return
     raw_range = input(language["server"]["input_range"])
-    list_range = range_calculator(len(client_list), raw_range)
+    list_range = functions.range_calculator(len(client_list), raw_range)
     i = 0
     for client_obj in client_list:
         client_obj.send_range(list_range[i])
         i += 1
-    thread = threading.Thread(target=receive_results, args=[raw_range], daemon=True)
-    thread.start()
+
+    scan_list.append(results(raw_range, len(client_list)))
+
     print(language["server"]["started_scan"])
     input(language["pause"])
 
 
 def show_results():
-    i = 1
-    print(" 0) " + language["server"]["back"])
-    for result in result_list:
-        print(" ", i, ") " + result.get_state())
-        i += 1
-    if x := int(input(language["choice"])) != 0:
-        result_list[x - 1].show_result()
+    while True:
+        i = 1
+        print(" 0) " + language["server"]["back"])
+        for result in scan_list:
+            if result.get_state():
+                print(" " + str(i) + ") ", result.range_name, language["server"]["scan_finished"])
+            else:
+                print(" " + str(i) + ") ", result.range_name, language["server"]["scan_running"])
+            i += 1
+
+        x = int(input(language["choice"]))
+        if x == 0:
+            break
+        elif 0 < x < i:
+            scan_list[x - 1].show_result()
 
 
 def main():
     global settings
     global language
-    global result_list
-    global thread_list
+    global scan_list
     global client_list
     settings = functions.get_settings()
     language = functions.get_lang(settings)
     client_list = []
-    thread_list = []
-    result_list = []
+    scan_list = []
     if settings["first_start"]:
         functions.clear()
         print(language["server"]["first_setup"])
@@ -212,10 +210,65 @@ def main():
         setup_qubo_command()
         settings["first_start"] = False
         functions.save_file(json.dumps(settings), "data/settings.json")
+        print(language["server"]["close_warning"])
+        input(language["pause"])
+
+    functions.clear()
+    if settings["load_last_session"]:
+        load_last_session()
+
+    try:
+        main_menu()
+    finally:
+        close_and_save_all()
+
+
+def load_last_session():
+    print(language["server"]["loading_last_session"])
+    settings["load_last_session"] = False
+    functions.save_file(json.dumps(settings), "data/settings.json")
+    last_session = functions.get_last_session()
+    for x in last_session["clients"]:
+        client_list.append(client(x))
+    for x in last_session["scans"]:
+        scan_list.append(results(x, len(client_list)))
+    i = 0
+    for x in last_session["scans_results"]:
+        scan_list[i].result_list = x
+        i += 1
+    sleep(2)
+    functions.clear()
+
+
+def close_and_save_all():
+    while True:
+        print(language["server"]["save_ask"])
+        x = input(language["choice"])
+        if x == "1":
+            file_to_save = {
+                "clients": [],
+                "scans": [],
+                "scans_results": []
+            }
+            for client in client_list:
+                file_to_save["clients"].append((client.host, client.port))
+            for scan in scan_list:
+                file_to_save["scans"].append(scan.range_name)
+                file_to_save["scans_results"].append(scan.result_list)
+            functions.save_file(json.dumps(file_to_save), "data/tmp/last_session.json")
+            settings["load_last_session"] = True
+            functions.save_file(json.dumps(settings), "data/settings.json")
+            sys.exit()
+        elif x == "2":
+            break
+
+
+def main_menu():
     while True:
         language = functions.get_lang(settings)
         functions.clear()
-        x = input(language["server"]["menu"])
+        print(language["server"]["menu"])
+        x = input(language["choice"])
         if x == "1":
             scan_manager()
         elif x == "2":
@@ -223,13 +276,14 @@ def main():
         elif x == "3":
             dscanner_settings()
         elif x == "4":
-            sys.exit()
+            break
 
 
 def scan_manager():
     while True:
         functions.clear()
-        x = input(language["server"]["scan_manager"])
+        print(language["server"]["scan_manager"])
+        x = input(language["choice"])
         if x == "1":
             start_scan()
         elif x == "2":
@@ -241,7 +295,8 @@ def scan_manager():
 def dscanner_manager():
     while True:
         functions.clear()
-        x = input(language["server"]["dscanner_manager"])
+        print(language["server"]["dscanner_manager"])
+        x = input(language["choice"])
         if x == "1":
             client_list.append(client())
         elif x == "2":
@@ -250,12 +305,13 @@ def dscanner_manager():
 
 def dscanner_settings():
     while True:
+        global language
         functions.clear()
-        x = input(language["server"]["dscanner_settings"])
+        print(language["server"]["dscanner_settings"])
+        x = input(language["choice"])
         if x == "1":
             setup_qubo_command()
         elif x == "2":
-            functions.get_lang(settings, 1)
-            break
+            language = functions.get_lang(settings, 1)
         elif x == "3":
             break
