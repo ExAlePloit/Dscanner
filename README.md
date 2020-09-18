@@ -72,8 +72,9 @@ Server: It connects to clients, sends instructions, and receives and processes t
 - [x] connects clients and scans
 - [x] Save results to a file
 - [x] Multi language support
+- [x] Reload results after a server restart
+
 - [ ] Custom settings for each client
-- [ ] Reload results after a server restart
 - [ ] Possibility to put in what the scans
 - [ ] Support for custom colors
 - [ ] Graphical interface for server mode
