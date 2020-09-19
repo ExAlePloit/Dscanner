@@ -60,6 +60,7 @@ def setup_qubo_command():
                 print(language["server"]["qubo_command_settings"]["cant_exit"])
                 input(language["pause"])
             else:
+                functions.save_file(json.dumps(settings), "data/settings.json")
                 return
 
 
@@ -161,18 +162,22 @@ class results:
 def start_scan():
     if len(client_list) == 0:
         print(language["server"]["cant_start_scan"])
-        print(language["pause"])
+        input(language["pause"])
         return
     raw_range = input(language["server"]["input_range"])
-    list_range = functions.range_calculator(len(client_list), raw_range)
-    i = 0
-    for client_obj in client_list:
-        client_obj.send_range(list_range[i])
-        i += 1
+    good_range = functions.range_parse(raw_range)
+    list_range = functions.range_calculator(len(client_list), good_range)
+    if list_range is not None:
+        i = 0
+        for client_obj in client_list:
+            client_obj.send_range(list_range[i])
+            i += 1
 
-    scan_list.append(results(raw_range, len(client_list)))
+        scan_list.append(results(good_range, len(client_list)))
 
-    print(language["server"]["started_scan"])
+        print(language["server"]["started_scan"])
+    else:
+        print("Invalid range")
     input(language["pause"])
 
 
@@ -187,11 +192,13 @@ def show_results():
                 print(" " + str(i) + ") ", result.range_name, language["server"]["scan_running"])
             i += 1
 
-        x = int(input(language["choice"]))
-        if x == 0:
+        x = input(language["choice"])
+        if x == "":
             break
-        elif 0 < x < i:
-            scan_list[x - 1].show_result()
+        elif int(x) == 0:
+            break
+        elif 0 < int(x) < i:
+            scan_list[int(x) - 1].show_result()
 
 
 def main():
@@ -311,6 +318,7 @@ def dscanner_settings():
         x = input(language["choice"])
         if x == "1":
             setup_qubo_command()
+
         elif x == "2":
             language = functions.get_lang(settings, 1)
         elif x == "3":
